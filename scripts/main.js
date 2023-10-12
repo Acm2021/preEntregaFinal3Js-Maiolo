@@ -8,16 +8,40 @@ alert("VINCULADO OK");
     const carrito = new Carrito();
     
 /*------------------CREO UNA TARJETA MEDIANTE JS-----------------------------------------------------*/
+/*<div class="container">
 
-const contenedor= document.querySelector('#contenedor');
-const card = arregloDeProductos[0].cargarElPrductoEnUnaCard()
-contenedor.appendChild(card);
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+  <div class="col">
+  
+*/
+
+
+//const contenedor= document.querySelector('#contenedor');
+
+
+/*const fila= document.querySelector('#fila');
+for (let i = 0; i < 5; i++){
+    const colum = document.createElement('div');
+    colum.innerHTML = `<div class="col"></div>`
+    const card = arregloDeProductos[i].cargarElPrductoEnUnaCard()
+    colum.appendChild(card);
+    fila.appendChild(colum)
+}
+*/
+
+
+/*const card = arregloDeProductos[0].cargarElPrductoEnUnaCard()
+fila.appendChild(card)
+contenedor.appendChild(fila);
+const card2 = arregloDeProductos[1].cargarElPrductoEnUnaCard()
+fila2.appendChild(card2)
+contenedor.appendChild(fila2);*/
 
 /*------------------------------------------------------------------------*/
 
 
 function menu() {
-    let opcion = 8;
+    let opcion = 9;
     do { 
         console.log("Ingrese una opción:"); 
         console.log("1.Ver Galeria");
@@ -27,12 +51,13 @@ function menu() {
         console.log("5.Quitar un producto del carrito por Id");
         console.log("6.Mostrar productos del Carrito");
         console.log("7.Mostrar precio del Carrito");
-        console.log("8.Salir");
+        console.log("8.Mostrar Galeria por Pantalla");
+        console.log("9.Salir");
         console.log("-----------------------");
         opcion = prompt();
  
         switch (opcion) {
-            case "1": galeria.mostrarGaleria();
+            case "1": galeria.mostrarGaleriaPorConsola();
                 break;
             case "2": console.log("Ingrese nombre a filtrar");
                     let nombreABuscar = prompt();
@@ -62,11 +87,14 @@ function menu() {
                 break;
             case "7":
                 carrito.mostrarPrecioTotal();
-                break;        
+                break;
+            case "8":
+                galeria.mostrarGaleriaPorPantalla();
+                break;                
             default: console.log("Opción incorrecta");
                 break;
         }
-    }while (opcion !="8")
+    }while (opcion !="9")
     
 }
 

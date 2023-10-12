@@ -71,6 +71,8 @@ class Producto{
                     <h5 class="card-title">${this.nombre}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                         card's content.</p>
+                    <p class="card-id">${this.id}</p>
+                    <p class="card-precio">${this.precio}</p>
                     <a href="#" class="btn btn-primary">Agregar al carrito</a>
                 </div>
             </div>
@@ -103,15 +105,14 @@ class GaleriaProductos{
             if (producto.igualId(idConsultado))
             return producto}    
     
-    
     filtrarProductos(nombreConsultado,marcaConsultada,tipoConsultado){
         const resultadoFiltro=this.productos.filter (producto => this.filtrarNombre(producto, nombreConsultado)).filter(producto => this.filtrarMarca(producto, marcaConsultada)).filter(producto => this.filtrarTipo(producto, tipoConsultado))
         if(resultadoFiltro.length >0){
             return resultadoFiltro;
         }else{
             console.error("NO HAY RESULTADOS PARA SU BUSQUEDA")}
-    }
-        
+    }      
+
     buscarProductoPorId(idConsultado){
         let productoEncontrado=this.productos.find((producto)=>producto.igualId(idConsultado))
         if (productoEncontrado) {
@@ -119,21 +120,33 @@ class GaleriaProductos{
           } else {
             console.log("Producto no encontrado");
           }
-        
-         
         }
-    
-    
-    mostrarGaleria(){
-        //Limpiar pantalla
-        //REDIBUJARLA
-        
+
+    mostrarGaleriaPorConsola(){        
         for (const producto of this.productos) {
-            //AGREGAR TARJETA A LA PANTALLA.
-            producto.mostrar();
+                producto.mostrar();
         }
     };
 
+    limpiarPantalla(){
+        const fila= document.querySelector('#fila');  
+        while(fila.firstChild){
+            fila.removeChild(fila.firstChild)
+        }
+    }
+    
+    mostrarGaleriaPorPantalla(){
+        
+        this.limpiarPantalla();
+        const fila= document.querySelector('#fila');
+        for (const producto of this.productos) {
+            const colum = document.createElement('div');
+            colum.innerHTML = `<div class="col"></div>`
+            const card = producto.cargarElPrductoEnUnaCard()
+            colum.appendChild(card);
+            fila.appendChild(colum)
+        };
+    }
 }
 
 //-----------------------------------------------------------------------------//
@@ -143,8 +156,6 @@ class Carrito{
         this.precioTotal=0;
     
     }
-
-    
     agregarUnProducto(producto){
         this.items.push(producto)
         this.precioTotal+= producto.getPrecio();
