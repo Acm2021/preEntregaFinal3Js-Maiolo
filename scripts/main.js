@@ -1,41 +1,9 @@
 
 alert("VINCULADO OK");
 
-//Cargo una pequeña cantidad de productos a modo de base de datos.
-
-
-    const galeria = new GaleriaProductos(arregloDeProductos);
-    const carrito = new Carrito();
     
 /*------------------CREO UNA TARJETA MEDIANTE JS-----------------------------------------------------*/
-/*<div class="container">
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-  <div class="col">
-  
-*/
-
-
-//const contenedor= document.querySelector('#contenedor');
-
-
-/*const fila= document.querySelector('#fila');
-for (let i = 0; i < 5; i++){
-    const colum = document.createElement('div');
-    colum.innerHTML = `<div class="col"></div>`
-    const card = arregloDeProductos[i].cargarElPrductoEnUnaCard()
-    colum.appendChild(card);
-    fila.appendChild(colum)
-}
-*/
-
-
-/*const card = arregloDeProductos[0].cargarElPrductoEnUnaCard()
-fila.appendChild(card)
-contenedor.appendChild(fila);
-const card2 = arregloDeProductos[1].cargarElPrductoEnUnaCard()
-fila2.appendChild(card2)
-contenedor.appendChild(fila2);*/
 
 /*------------------------------------------------------------------------*/
 
@@ -97,7 +65,36 @@ function menu() {
     }while (opcion !="9")
     
 }
+/*---------------------------------------------------------*/
+function agregarProductoAlCarrito(evt){
+    if(evt.target.classList.contains("AgregarAlCarrito")){
+        const producto =evt.target.parentElement
+        const id =producto.querySelector("#card-id").textContent
+        let productoEncontrado = galeria.buscarProductoPorId(id)
+        carrito.agregarUnProducto(productoEncontrado)
+        carrito.mostrarPorPantalla()
+    }
+}
+
+/*function eliminarProductoDelCarrito(evt){
+    if(evt.target.classList.contains("AgregarAlCarrito")){
+        const producto =evt.target.parentElement
+        const id =producto.querySelector("#card-id").textContent
+        console.log(id)
+}*/
 
 
-menu();
+//Cargo una pequeña cantidad de productos a modo de base de datos.
 
+
+const galeria = new GaleriaProductos(arregloDeProductos);
+const carrito = new Carrito();
+galeria.mostrarGaleriaPorPantalla();
+const contendorProductosPagina= document.querySelector("#contendorProductos")
+contendorProductosPagina.addEventListener('click', agregarProductoAlCarrito)
+
+/*const contendorCarrito = document.querySelector("#carrito")
+contendorCarrito.addEventListener('click', eliminarProductoDelCarrito)*/
+
+
+//menu();;

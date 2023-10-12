@@ -71,9 +71,9 @@ class Producto{
                     <h5 class="card-title">${this.nombre}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                         card's content.</p>
-                    <p class="card-id">${this.id}</p>
+                    <p id="card-id">${this.id}</p>
                     <p class="card-precio">${this.precio}</p>
-                    <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                    <a href="#" class="btn btn-primary AgregarAlCarrito">Agregar al carrito</a>
                 </div>
             </div>
             `;
@@ -150,6 +150,11 @@ class GaleriaProductos{
 }
 
 //-----------------------------------------------------------------------------//
+
+
+
+
+
 class Carrito{
     constructor(){
         this.items = [];
@@ -170,18 +175,41 @@ class Carrito{
       }
     };
             
-    mostrarProductosCarrito(){
+
+    
+    mostrarProductosCarritoPorConsola(){
         for (const item of this.items) {
             item.mostrar();
         }
-
     };
+
+    limpiarPantalla(){
+        const cuerpoFilasCarrito= document.querySelector('#cuerpoFilasCarrito');  
+        while(cuerpoFilasCarrito.firstChild){
+            cuerpoFilasCarrito.removeChild(cuerpoFilasCarrito.firstChild)
+        }
+    }
+    mostrarPorPantalla(){
+        this.limpiarPantalla()
+        for (const item of this.items) {
+            const cuerpoFilasCarrito=document.querySelector('#cuerpoFilasCarrito')
+            const filaCarrito= document.createElement('tr')
+            filaCarrito.innerHTML = `
+                <td><img src='#' width="100" /></td>
+                <td> ${item.getNombre()}</td>
+                <td> ${item.getPrecio()}</td>
+                <td> ${item.getId()}</td>
+                <td></td>
+                <td>  <a href='#' id= "borrarProducto" data-id="${item.getId()}">❌</a></td>
+            `
+            cuerpoFilasCarrito.appendChild(filaCarrito)
+        }
+    const totalCarrito=document.querySelector('#totalCarrito')
+    totalCarrito.textContent = "Total del carrito: $" + this.precioTotal;
+    }
     mostrarPrecioTotal(){
         console.log("El precio total de carrito es:" + "$" + this.precioTotal)
     }; 
-
-
-
 }
 
 
