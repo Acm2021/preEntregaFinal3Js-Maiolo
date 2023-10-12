@@ -7,6 +7,7 @@ class Producto{
     this.id=id;
     }
 
+    
     mostrar(){
         console.log('Nombre del producto:' + this.nombre)
         console.log('Tipo:'+ this.tipo)
@@ -60,6 +61,23 @@ class Producto{
     getId(){
         return this.id;
     };
+
+    cargarElPrductoEnUnaCard(){
+        const card = document.createElement('div');
+        card.innerHTML = `
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${this.nombre}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                </div>
+            </div>
+            `;
+        return card
+    }; 
+
 }
 
 //-----------------------------------------------------------------------------//
@@ -107,7 +125,11 @@ class GaleriaProductos{
     
     
     mostrarGaleria(){
+        //Limpiar pantalla
+        //REDIBUJARLA
+        
         for (const producto of this.productos) {
+            //AGREGAR TARJETA A LA PANTALLA.
             producto.mostrar();
         }
     };
@@ -146,4 +168,12 @@ class Carrito{
     mostrarPrecioTotal(){
         console.log("El precio total de carrito es:" + "$" + this.precioTotal)
     }; 
+
+
+
 }
+
+
+//-----------------------------------------------------------------------------//
+
+

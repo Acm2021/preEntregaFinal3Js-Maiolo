@@ -4,13 +4,21 @@ alert("VINCULADO OK");
 //Cargo una pequeña cantidad de productos a modo de base de datos.
 
 
-
-function menu() {
     const galeria = new GaleriaProductos(arregloDeProductos);
     const carrito = new Carrito();
+    
+/*------------------CREO UNA TARJETA MEDIANTE JS-----------------------------------------------------*/
+
+const contenedor= document.querySelector('#contenedor');
+const card = arregloDeProductos[0].cargarElPrductoEnUnaCard()
+contenedor.appendChild(card);
+
+/*------------------------------------------------------------------------*/
+
+
+function menu() {
     let opcion = 8;
     do { 
-
         console.log("Ingrese una opción:"); 
         console.log("1.Ver Galeria");
         console.log("2.Filtrar Productos");
@@ -22,7 +30,7 @@ function menu() {
         console.log("8.Salir");
         console.log("-----------------------");
         opcion = prompt();
-        
+ 
         switch (opcion) {
             case "1": galeria.mostrarGaleria();
                 break;
