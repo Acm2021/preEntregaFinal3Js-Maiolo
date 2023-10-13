@@ -7,11 +7,13 @@ ul {
 }
 
 .submenu {
-    position: relative;
+    position:relative;
 }
 
 #img-carrito {
     cursor: pointer;
+    width: 8rem;
+    align-items: end;
 }
 
 

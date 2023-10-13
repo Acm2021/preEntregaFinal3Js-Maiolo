@@ -43,7 +43,7 @@ function actualizarLocalStorage(){
     localStorage.setItem('carrito', JSON.stringify(carrito))
 }
 
-//Cargo una pequeña cantidad de productos a modo de base de datos.
+
 
 
 const galeria = new GaleriaProductos(arregloDeProductos);
