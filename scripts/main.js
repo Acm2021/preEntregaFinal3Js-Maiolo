@@ -8,26 +8,21 @@ function agregarProductoAlCarrito(evt){
         const id =producto.querySelector("#card-id").textContent
         let productoEncontrado = galeria.buscarProductoPorId(id)
         carrito.agregarUnProducto(productoEncontrado)
-        carrito.mostrarPorPantalla()
+        carrito.mostrarPorPantalla()  
     }
 }
-
 function eliminarProductoDelCarrito(evt){
     
     if(evt.target.id==="borrarProducto"){
         idProductoABorrar =evt.target.getAttribute('data-id')
         carrito.eliminarUnProducto(idProductoABorrar)
         carrito.mostrarPorPantalla();
-
     }
 }
-
 function vaciarCarrito(){
     carrito.vaciar()
     carrito.mostrarPorPantalla()
-
 }
-
 function filtrarGaleria(){
     const nombreAFiltrar=document.querySelector("#busquedaNombre")
     const marcaAFiltrar=document.querySelector("#busquedaMarca")
@@ -35,7 +30,6 @@ function filtrarGaleria(){
     const galeriaFiltrada = new GaleriaProductos(galeria.filtrarProductos(nombreAFiltrar.value,marcaAFiltrar.value,tipoAFiltrar.value));
     galeriaFiltrada.mostrarGaleriaPorPantalla()
 }
-
 function borrarFiltroCarrito(){
     const nombreAFiltrar=document.querySelector("#busquedaNombre")
     const marcaAFiltrar=document.querySelector("#busquedaMarca")
@@ -44,17 +38,28 @@ function borrarFiltroCarrito(){
     marcaAFiltrar.value=null
     tipoAFiltrar.value=null
     galeria.mostrarGaleriaPorPantalla();
-
 }
-
-
+function actualizarLocalStorage(){
+    localStorage.setItem('carrito', JSON.stringify(carrito))
+}
 
 //Cargo una pequeña cantidad de productos a modo de base de datos.
 
 
 const galeria = new GaleriaProductos(arregloDeProductos);
-const carrito = new Carrito();
+let carrito = new Carrito();
 galeria.mostrarGaleriaPorPantalla();
+
+document.addEventListener('DOMContentLoaded', ()=>{
+    if(JSON.parse(localStorage.getItem('carrito')) === null){
+        
+    }else{
+       // carrito = new Carrito();
+        //carrito = JSON.parse(localStorage.getItem('carrito'))
+    }
+    carrito.mostrarPorPantalla()
+})
+
 
 const contendorProductosPagina= document.querySelector("#contendorProductos")
 contendorProductosPagina.addEventListener('click', agregarProductoAlCarrito)

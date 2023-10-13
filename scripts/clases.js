@@ -6,8 +6,6 @@ class Producto{
     this.precio=precio ;   
     this.id=id;
     }
-
-    
     mostrar(){
         console.log('Nombre del producto:' + this.nombre)
         console.log('Tipo:'+ this.tipo)
@@ -32,7 +30,6 @@ class Producto{
             return true;
         else 
             return false;
-    
     }
     igualPrecio(precioConsultado){
         if(this.precio===precioConsultado)
@@ -61,7 +58,6 @@ class Producto{
     getId(){
         return this.id;
     };
-
     cargarElPrductoEnUnaCard(){
         const card = document.createElement('div');
         card.innerHTML = `
@@ -198,6 +194,7 @@ class Carrito{
         }
     const totalCarrito=document.querySelector('#totalCarrito')
     totalCarrito.textContent = "Total del carrito: $" + this.precioTotal;
+    actualizarLocalStorage()
     }
     mostrarPrecioTotal(){
         console.log("El precio total de carrito es:" + "$" + this.precioTotal)
