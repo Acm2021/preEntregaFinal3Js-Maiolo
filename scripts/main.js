@@ -22,6 +22,12 @@ function eliminarProductoDelCarrito(evt){
     }
 }
 
+function vaciarCarrito(){
+    carrito.vaciar()
+    carrito.mostrarPorPantalla()
+
+}
+
 function filtrarGaleria(){
     const nombreAFiltrar=document.querySelector("#busquedaNombre")
     const marcaAFiltrar=document.querySelector("#busquedaMarca")
@@ -55,6 +61,10 @@ contendorProductosPagina.addEventListener('click', agregarProductoAlCarrito)
 
 const contendorCarrito = document.querySelector("#cuerpoFilasCarrito")
 contendorCarrito.addEventListener('click', eliminarProductoDelCarrito)
+
+const vaciarCarritoElement = document.querySelector("#vaciar-carrito")
+vaciarCarritoElement.addEventListener('click', vaciarCarrito)
+
 
 const btnFiltrarGaleria = document.querySelector("#btnFiltroGaleria")
 btnFiltrarGaleria.addEventListener('click',filtrarGaleria)

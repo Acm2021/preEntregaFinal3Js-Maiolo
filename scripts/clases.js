@@ -69,8 +69,8 @@ class Producto{
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${this.nombre}</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-marca">${this.marca}</p>
+                    <p class="tipo-marca">${this.tipo}</p>
                     <p id="card-id">${this.id}</p>
                     <p class="card-precio">${this.precio}</p>
                     <a href="#" class="btn btn-primary AgregarAlCarrito">Agregar al carrito</a>
@@ -104,7 +104,6 @@ class GaleriaProductos{
     filtrarId = (producto, idConsultado) => {
             if (producto.igualId(idConsultado))
             return producto}    
-    
     filtrarProductos(nombreConsultado,marcaConsultada,tipoConsultado){
         let resultadoFiltro = this.productos.filter(producto => {
             return (
@@ -113,15 +112,12 @@ class GaleriaProductos{
                 (tipoConsultado === "" || this.filtrarTipo(producto, tipoConsultado))
             );
         });
-    
         if (resultadoFiltro.length > 0) {
             return resultadoFiltro;
         } else {
             console.error("NO HAY RESULTADOS PARA SU BÚSQUEDA");
         }
     }
-
-
     buscarProductoPorId(idConsultado){
         let productoEncontrado=this.productos.find((producto)=>producto.igualId(idConsultado))
         if (productoEncontrado) {
@@ -130,22 +126,18 @@ class GaleriaProductos{
             console.log("Producto no encontrado");
           }
         }
-
     mostrarGaleriaPorConsola(){        
         for (const producto of this.productos) {
                 producto.mostrar();
         }
     };
-
     limpiarPantalla(){
         const fila= document.querySelector('#fila');  
         while(fila.firstChild){
             fila.removeChild(fila.firstChild)
         }
     }
-    
     mostrarGaleriaPorPantalla(){
-        
         this.limpiarPantalla();
         const fila= document.querySelector('#fila');
         for (const producto of this.productos) {
@@ -157,41 +149,32 @@ class GaleriaProductos{
         };
     }
 }
-
 //-----------------------------------------------------------------------------//
-
-
-
-
-
 class Carrito{
     constructor(){
         this.items = [];
         this.precioTotal=0;
-    
     }
     agregarUnProducto(producto){
         this.items.push(producto)
         this.precioTotal+= producto.getPrecio();
+        this.precioTotal = Math.floor(this.precioTotal* 100) / 100
     };
     eliminarUnProducto(idAEliminar){
        const indiceAEliminar=this.items.findIndex((item)=>item.igualId(idAEliminar))
        if (indiceAEliminar !== -1) {
         this.precioTotal-=this.items[indiceAEliminar].getPrecio()
+        this.precioTotal = Math.floor(this.precioTotal * 100) / 100
         this.items.splice(indiceAEliminar, 1);
       } else {
         console.log("No se encontró ningún elemento con el ID especificado.");
       }
     };
-            
-
-    
     mostrarProductosCarritoPorConsola(){
         for (const item of this.items) {
             item.mostrar();
         }
     };
-
     limpiarPantalla(){
         const cuerpoFilasCarrito= document.querySelector('#cuerpoFilasCarrito');  
         while(cuerpoFilasCarrito.firstChild){
@@ -219,9 +202,12 @@ class Carrito{
     mostrarPrecioTotal(){
         console.log("El precio total de carrito es:" + "$" + this.precioTotal)
     }; 
+    vaciar(){
+        while(this.items.length>0){
+           this.items.pop()
+        }  
+        this.precioTotal=0
+    }
 }
-
-
-//-----------------------------------------------------------------------------//
 
 
