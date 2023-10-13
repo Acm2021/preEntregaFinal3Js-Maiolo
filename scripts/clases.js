@@ -106,12 +106,21 @@ class GaleriaProductos{
             return producto}    
     
     filtrarProductos(nombreConsultado,marcaConsultada,tipoConsultado){
-        const resultadoFiltro=this.productos.filter (producto => this.filtrarNombre(producto, nombreConsultado)).filter(producto => this.filtrarMarca(producto, marcaConsultada)).filter(producto => this.filtrarTipo(producto, tipoConsultado))
-        if(resultadoFiltro.length >0){
+        let resultadoFiltro = this.productos.filter(producto => {
+            return (
+                (nombreConsultado === "" || this.filtrarNombre(producto, nombreConsultado)) &&
+                (marcaConsultada === "" || this.filtrarMarca(producto, marcaConsultada)) &&
+                (tipoConsultado === "" || this.filtrarTipo(producto, tipoConsultado))
+            );
+        });
+    
+        if (resultadoFiltro.length > 0) {
             return resultadoFiltro;
-        }else{
-            console.error("NO HAY RESULTADOS PARA SU BUSQUEDA")}
-    }      
+        } else {
+            console.error("NO HAY RESULTADOS PARA SU BÚSQUEDA");
+        }
+    }
+
 
     buscarProductoPorId(idConsultado){
         let productoEncontrado=this.productos.find((producto)=>producto.igualId(idConsultado))
