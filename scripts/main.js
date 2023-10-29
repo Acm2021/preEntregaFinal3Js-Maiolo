@@ -1,5 +1,5 @@
 
-alert("VINCULADO OK");
+//alert("VINCULADO OK");
 
 /*---------------------------------------------------------*/
 function agregarProductoAlCarrito(evt){
@@ -45,20 +45,76 @@ function actualizarLocalStorage(){
 
 
 
-
-const galeria = new GaleriaProductos(arregloDeProductos);
-let carrito = new Carrito();
-galeria.mostrarGaleriaPorPantalla();
-
-document.addEventListener('DOMContentLoaded', ()=>{
-    if(JSON.parse(localStorage.getItem('carrito')) === null){
+async function dataRequest (path){
+    try{
+        const response = await fetch(path);
+        if (!response.ok) {
+            throw new Error('Error al cargar el archivo JSON');
+        }
+        const jsonData = await response.json();
+        return jsonData
         
-    }else{
-       // carrito = new Carrito();
-        //carrito = JSON.parse(localStorage.getItem('carrito'))
+    }catch(error){
+      console.error('Error:', error);
+    };
+}
+
+function jsonDataParseProducts(jsonData){
+    
+    if (jsonData && jsonData.productos) {
+        const arregloDeProductos = jsonData.productos.map(productoData => {
+            return new Producto(
+                productoData.nombre,
+                productoData.descripcion,
+                productoData.marca,
+                productoData.precio,
+                productoData.id
+            );
+        });
+    return arregloDeProductos
     }
-    carrito.mostrarPorPantalla()
-})
+}
+
+
+async function fetchDataAndParse(dataPath) {
+    try {
+        const jsonData = await dataRequest(dataPath); // Espera a que dataRequest se complete
+        const arregloDeProductos = jsonDataParseProducts(jsonData);
+        return arregloDeProductos;
+    } catch (error) {
+        console.error('Error al cargar y parsear los datos:', error);
+    }
+}
+
+//INICIO
+
+let DATA_PATH = '../data/data.json';
+
+(async () => {
+    const arregloDeProductos = await fetchDataAndParse(DATA_PATH);
+    const galeria = new GaleriaProductos(arregloDeProductos);
+    let carrito = new Carrito();
+    galeria.mostrarGaleriaPorPantalla();
+
+  /*  document.addEventListener('DOMContentLoaded', ()=>{
+        if(JSON.parse(localStorage.getItem('carrito')) === null){
+            
+        }else{
+        // carrito = new Carrito();
+            //carrito = JSON.parse(localStorage.getItem('carrito'))
+        }
+        carrito.mostrarPorPantalla()
+    })*/
+
+
+
+
+
+
+
+
+})();
+
 
 
 const contendorProductosPagina= document.querySelector("#contendorProductos")
@@ -75,3 +131,11 @@ const btnFiltrarGaleria = document.querySelector("#btnFiltroGaleria")
 btnFiltrarGaleria.addEventListener('click',filtrarGaleria)
 const btnBorrarFiltradoGaleria= document.querySelector("#btnBorrarFiltroGaleria")
 btnBorrarFiltradoGaleria.addEventListener('click', borrarFiltroCarrito)
+
+
+
+
+
+
+
+
